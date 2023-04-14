@@ -1,0 +1,16 @@
+div.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  p {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 21.5172px;
+    line-height: 26px;
+    strong {
+      color: #cfcfcf;
+    }
+  }
+}
