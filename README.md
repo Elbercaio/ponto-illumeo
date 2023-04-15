@@ -1,5 +1,6 @@
 # ponto-illumeo
-TODO: migrations, seed, punch the clock service, spa
+
+TODO: migrations, seed, async, controller, service
 
 # Getting Started with Create React App
 
