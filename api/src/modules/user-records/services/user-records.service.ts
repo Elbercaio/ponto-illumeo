@@ -18,13 +18,20 @@ export class UserRecordsService {
       }
       return { data: records };
     } catch (error) {
-      console.log(error);
       const errorResponse: IError = {
-        message: 'Falha ao buscar registros do usuário',
+        message: `Falha ao buscar registros do usuário\n${error}`,
         status: 400,
       };
       return { error: errorResponse };
     }
+  }
+
+  msToTime(ms: number) {
+    let hours = ms / (1000 * 60 * 60);
+    let h = Math.floor(hours);
+    let m = Math.floor((hours - h) * 60);
+    let s = Math.floor(((hours - h) * 60 - m) * 60);
+    return `${h < 10 ? '0' + h : h}:${m < 10 ? '0' + m : m}:${s < 10 ? '0' + s : s}`;
   }
 
   async getDailyRecordsByUser(userCode: string): Promise<IServiceResponse<DiffByDay>> {
@@ -65,9 +72,8 @@ export class UserRecordsService {
 
       return { data: diffByDay };
     } catch (error) {
-      console.log(error);
       const errorResponse: IError = {
-        message: 'Falha ao buscar registros do usuário',
+        message: `Falha ao buscar registros do usuário\n${error}`,
         status: 400,
       };
       return { error: errorResponse };
@@ -92,9 +98,8 @@ export class UserRecordsService {
       }
       return { data: await UserRecord.create(createDto as UserRecord) };
     } catch (error) {
-      console.log(error);
       const errorResponse: IError = {
-        message: 'Falha ao criar registro',
+        message: `Falha ao criar registro\n${error}}`,
         status: 400,
       };
       return { error: errorResponse };

@@ -1,7 +1,7 @@
+import { IUserRecord, UserRecordType } from '@shared';
 import { Request, Response } from 'express';
 import { UserRecordsService } from '../services/user-records.service';
 import { UserRecordsController } from './user-records.controller';
-import { IUserRecord, UserRecordType } from '@shared';
 
 describe('UserRecordsController', () => {
   let controller: UserRecordsController;
@@ -43,7 +43,7 @@ describe('UserRecordsController', () => {
     it('should call service with correct user ID', async () => {
       const mockService = jest.spyOn(service, 'getRecordsByUser').mockResolvedValue({ data: mockUserRecords });
       await controller.getUserRecord(mockReq, mockRes);
-      expect(mockService).toHaveBeenCalledWith(+userCode);
+      expect(mockService).toHaveBeenCalledWith(userCode);
     });
 
     it('should return user record data when service succeeds', async () => {
@@ -65,7 +65,7 @@ describe('UserRecordsController', () => {
     it('should call service with correct user ID', async () => {
       const mockService = jest.spyOn(service, 'getDailyRecordsByUser').mockResolvedValue({ data: mockDailyUserRecord });
       await controller.getDailyUserRecord(mockReq, mockRes);
-      expect(mockService).toHaveBeenCalledWith(+userCode);
+      expect(mockService).toHaveBeenCalledWith(userCode);
     });
 
     it('should return daily user record data when service succeeds', async () => {

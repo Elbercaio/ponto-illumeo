@@ -14,9 +14,8 @@ export class UsersService {
       }
       return { data: user };
     } catch (error) {
-      console.log(error);
       const errorResponse: IError = {
-        message: 'Falha ao buscar usuário',
+        message: `Falha ao buscar usuário\n${error}}`,
         status: 400,
       };
       return { error: errorResponse };
@@ -27,9 +26,8 @@ export class UsersService {
       const code: string = Array.from(Array(7), () => Math.floor(Math.random() * 36).toString(36)).join('');
       return { data: await User.create({ code } as User) };
     } catch (error) {
-      console.log(error);
       const errorResponse: IError = {
-        message: 'Falha ao criar usuário',
+        message: `Falha ao criar usuário\n${error}`,
         status: 400,
       };
       return { error: errorResponse };

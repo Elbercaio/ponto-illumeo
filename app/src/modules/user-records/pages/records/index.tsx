@@ -1,13 +1,23 @@
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useQuery } from "../../../../shared";
 import { RecordList } from "../../components";
-import { UserRecordService } from "../../services/user-record.service";
 
 export function Records() {
-  const service = new UserRecordService();
-  const [data, setData] = useState([{}]);
-  const params = new URLSearchParams(useLocation().search);
-  console.log("\n \n file: index.tsx:10 \n Records \n params:", params);
+  const [data, setData] = useState({});
+  const params = useQuery();
+  useEffect(() => {
+    // const service = new UserRecordService();
+    const getData = () => {
+      console.log("\n \n file: index.tsx:10 \n Records \n params:", params);
+      setData({
+        "2023-04-14": 8.00,
+        "2023-04-15": 13.98,
+      });
+      console.log("loaded");
+    };
+    getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // useEffect(() => {
   // service.getDailyUserRecord(params?.code)
@@ -19,8 +29,8 @@ export function Records() {
     <div>
       <h1>this is the clock</h1>
       <ol>
-        {data.map((time: any) => (
-          <RecordList time={time} />
+        {Object.entries(data).map((record: any) => (
+          <RecordList day={record[0]} hours={record[1]} />
         ))}
       </ol>
     </div>

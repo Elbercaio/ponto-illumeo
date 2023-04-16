@@ -13,19 +13,24 @@ export function Home() {
       code: { value: string };
     };
     const code = target.code.value;
-    service
-      .get(code)
-      .then((response) => {
-        console.log(response.data);
-        const params = { code: "date" };
-        navigate({
-          pathname: "/records",
-          search: `?${createSearchParams(params)}`,
-        });
-      })
-      .catch((error: Error) => {
-        console.log(error);
-      });
+    const params = { code };
+    navigate({
+      pathname: "/records",
+      search: `?${createSearchParams(params)}`,
+    });
+
+    // service
+    //   .get(code)
+    //   .then((response) => {
+    //     console.log(response.data);
+    //     navigate({
+    //       pathname: "/records",
+    //       search: `?${createSearchParams(params)}`,
+    //     });
+    //   })
+    //   .catch((error: Error) => {
+    //     console.log(error);
+    //   });
   };
   return (
     <div className="home">
