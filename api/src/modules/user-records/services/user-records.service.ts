@@ -1,6 +1,9 @@
 import { IError, IServiceResponse, IUserRecord, UserRecord } from '@shared';
 import { CreateUserRecordDto } from '../dtos/create-user-record.dto';
 
+type DiffByDay = {
+  [key: string]: number;
+};
 export class UserRecordsService {
   constructor() {}
   async getRecordsByUser(userId: number): Promise<IServiceResponse<IUserRecord[]>> {
@@ -24,9 +27,9 @@ export class UserRecordsService {
     }
   }
 
-  async getDailyRecordsByUser(userId: number): Promise<IServiceResponse<IUserRecord[]>> {
+  async getDailyRecordsByUser(userId: number): Promise<IServiceResponse<DiffByDay>> {
     try {
-      const records = await UserRecord.findAll({ where: { userId } });
+      const records = await UserRecord.findAll({ where: { userId }, order: [['timestamp', 'ASC']] });
 
       if (!records) {
         const error: IError = {
@@ -35,7 +38,32 @@ export class UserRecordsService {
         };
         return { error };
       }
-      return { data: records };
+      const timestamps = records.map((record): Date => record.timestamp);
+      if (timestamps.length % 2 !== 0) {
+        timestamps.push(new Date(new Date().getTime() - 3 * 60 * 60 * 1000));
+      }
+
+      const pairsArray: Date[][] = Array.from({ length: Math.ceil(timestamps.length / 2) }, (_, i) =>
+        timestamps.slice(i * 2, i * 2 + 2)
+      );
+
+      const diffArray = pairsArray.map((pair) => {
+        const [date1, date2] = pair;
+        const diffInMs = date2.getTime() - date1.getTime();
+        return { day: date1.toISOString().slice(0, 10), difference: diffInMs / (1000 * 60 * 60) };
+      });
+
+      const diffByDay: DiffByDay = diffArray.reduce((accumulator: DiffByDay, currentValue) => {
+        const { day, difference }: { day: string; difference: number } = currentValue;
+        if (day in accumulator) {
+          accumulator[day] += difference;
+        } else {
+          accumulator[day] = difference;
+        }
+        return accumulator;
+      }, {});
+
+      return { data: diffByDay };
     } catch (error) {
       console.log(error);
       const errorResponse: IError = {

@@ -4,5 +4,6 @@ import { UserRecordsController } from '../modules/user-records/controllers/user-
 const router: Router = express.Router();
 const controller = new UserRecordsController();
 router.get('/:userId', controller.getUserRecord);
+router.get('/daily/:userId', controller.getDailyUserRecord);
 router.post('/', controller.postUserRecord);
 export default router;
