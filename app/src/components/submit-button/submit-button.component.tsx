@@ -13,18 +13,14 @@ export const SubmitButton: React.FC<Props> = ({
   height,
   onClick,
   width,
-}) => {
-  return (
-    <button
-      onClick={onClick}
-      style={{
-        height,
-        width,
-      }}
-    >
-      {children}
-    </button>
-  );
-};
-
-// export default SubmitButton;
+}) => (
+  <button
+    onClick={onClick}
+    style={{
+      height,
+      width,
+    }}
+  >
+    {children}
+  </button>
+);

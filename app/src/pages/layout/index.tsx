@@ -1,12 +1,9 @@
 import { Outlet } from "react-router-dom";
 
-function Home() {
-
+export function Layout() {
   return (
     <div className="Layout">
       <Outlet />
     </div>
   );
 }
-
-export default Home;

@@ -5,13 +5,9 @@ interface Props {
   label: string;
 }
 
-const InputText: React.FC<Props> = ({ label }) => {
-  return (
-    <label>
-      {label}:
-      <input type="text" name="name" />
-    </label>
-  );
-};
-
-export default InputText;
+export const InputText: React.FC<Props> = ({ label }) => (
+  <label>
+    {label}:
+    <input type="text" name="name" />
+  </label>
+);

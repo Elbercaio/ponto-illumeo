@@ -1,8 +1,6 @@
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.scss";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Clock from "./pages/clock";
-import Home from "./pages/home";
-import Layout from "./pages/layout";
+import { Home, Layout, Records } from "./pages";
 
 function App() {
   return (
@@ -10,8 +8,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="clock" element={<Clock />} />
-          <Route path="*" element={<Home />} />
+          <Route path="records" element={<Records />} />
+          <Route path="*" element={<Navigate replace to="/" />} />
         </Route>
       </Routes>
     </BrowserRouter>
