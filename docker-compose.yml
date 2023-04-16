@@ -5,6 +5,7 @@ networks:
 
 services:
   db:
+    container_name: db
     image: postgres
     restart: always
     networks:
@@ -17,6 +18,7 @@ services:
       - dbdata:/var/lib/postgresql/data
     ports:
       - 5432:5432
+
   server:
     build: ./api
     restart: always
@@ -27,12 +29,14 @@ services:
     depends_on:
       - db
     environment:
+      - API_PORT=3000
       - DB_CONNECTION=postgres
       - DB_HOST=db
       - DB_PORT=5432
       - DB_DATABASE=ponto
       - DB_USERNAME=user
       - DB_PASSWORD=password
+
   client:
     build: ./app
     restart: always

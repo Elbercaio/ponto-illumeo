@@ -6,38 +6,38 @@ module.exports = {
   up: (queryInterface, _Sequelize) =>
     queryInterface.bulkInsert('user_records', [
       {
-        userId: 1,
-        recordType: 'start',
+        user_id: 1,
+        record_type: 'start',
         timestamp: '2023-04-14 08:01:14',
       },
       {
-        userId: 1,
-        recordType: 'end',
+        user_id: 1,
+        record_type: 'end',
         timestamp: '2023-04-14 12:00:32',
       },
       {
-        userId: 1,
-        recordType: 'start',
+        user_id: 1,
+        record_type: 'start',
         timestamp: '2023-04-14 13:30:09',
       },
       {
-        userId: 1,
-        recordType: 'end',
+        user_id: 1,
+        record_type: 'end',
         timestamp: '2023-04-14 17:30:54',
       },
       {
-        userId: 1,
-        recordType: 'start',
+        user_id: 1,
+        record_type: 'start',
         timestamp: '2023-04-14 07:59:56',
       },
       {
-        userId: 1,
-        recordType: 'end',
+        user_id: 1,
+        record_type: 'end',
         timestamp: '2023-04-14 12:02:43',
       },
       {
-        userId: 1,
-        recordType: 'start',
+        user_id: 1,
+        record_type: 'start',
         timestamp: '2023-04-14 13:30:25',
       },
     ]),

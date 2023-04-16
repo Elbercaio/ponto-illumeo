@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
-import { db_host, db_port, db_user, db_password, db_database } from './config';
+import { db_host, db_user, db_password, db_database, db_port } from './config';
 
 const db = new Sequelize({
   dialect: 'postgres',

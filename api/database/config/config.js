@@ -1,4 +1,8 @@
-require('dotenv').config({ path: '.env' });
+try {
+  require('dotenv').config({ path: '${__dirname}/../.env' });
+} catch (e) {
+  console.warn('dotenv not found, running in docker?');
+}
 
 module.exports = {
   username: process.env.DB_USERNAME,
@@ -11,10 +15,10 @@ module.exports = {
     process.env.SSL_REQUIRED === 'true'
       ? {
           ssl: {
-            required: true
-          }
+            required: true,
+          },
         }
       : {},
   seederStorage: 'sequelize',
-  seederStorageTableName: 'sequelize_seeds'
+  seederStorageTableName: 'sequelize_seeds',
 };

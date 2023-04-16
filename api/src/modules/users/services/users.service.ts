@@ -1,6 +1,5 @@
 import { IError } from '../../../interfaces/error.interface';
 import { IUser } from '../../../interfaces/user.interface';
-import { UserRecord } from '../../../models/user-record.model';
 import { User } from '../../../models/user.model';
 
 interface IUserResponse extends Partial<IUser>, Partial<IError> {}
