@@ -12,14 +12,24 @@ describe('UserRecordsService', () => {
       recordType: UserRecordType.start,
       timestamp: new Date('2023-04-14T08:00:00.000Z'),
     } as UserRecord,
-    { id: 2, userCode: '4SXXFMf', recordType: UserRecordType.end, timestamp: new Date('2023-04-14T12:00:00.000Z') } as UserRecord,
+    {
+      id: 2,
+      userCode: '4SXXFMf',
+      recordType: UserRecordType.end,
+      timestamp: new Date('2023-04-14T12:00:00.000Z'),
+    } as UserRecord,
     {
       id: 3,
       userCode: '4SXXFMf',
       recordType: UserRecordType.start,
       timestamp: new Date('2023-04-15T08:00:00.000Z'),
     } as UserRecord,
-    { id: 4, userCode: '4SXXFMf', recordType: UserRecordType.end, timestamp: new Date('2023-04-15T12:00:00.000Z') } as UserRecord,
+    {
+      id: 4,
+      userCode: '4SXXFMf',
+      recordType: UserRecordType.end,
+      timestamp: new Date('2023-04-15T12:00:00.000Z'),
+    } as UserRecord,
   ];
 
   const createDto: CreateUserRecordDto = {
@@ -63,7 +73,7 @@ describe('UserRecordsService', () => {
 
       expect(result).toEqual({
         error: {
-          message: 'Falha ao buscar registros do usuário',
+          message: 'Falha ao buscar registros do usuário\nError: Database error',
           status: 400,
         },
       });
@@ -78,12 +88,15 @@ describe('UserRecordsService', () => {
       const result = await service.getDailyRecordsByUser('4SXXFMf');
 
       expect(result).toEqual({
-        data: {
-          '2023-04-14': 4,
-          '2023-04-15': 4,
-        },
+        data: [
+          { day: '2023-04-14', time: '04:00:00' },
+          { day: '2023-04-15', time: '04:00:00' },
+        ],
       });
-      expect(UserRecord.findAll).toHaveBeenCalledWith({ where: { userCode: '4SXXFMf' }, order: [['timestamp', 'ASC']] });
+      expect(UserRecord.findAll).toHaveBeenCalledWith({
+        where: { userCode: '4SXXFMf' },
+        order: [['timestamp', 'ASC']],
+      });
     });
 
     it('should return even if the turn has not finished', async () => {
@@ -91,9 +104,12 @@ describe('UserRecordsService', () => {
 
       const result = await service.getDailyRecordsByUser('4SXXFMf');
       if (result?.data) {
-        expect(result.data['2023-04-14']).toBeGreaterThan(0);
+        expect(typeof result.data[0].day).toEqual('string');
       }
-      expect(UserRecord.findAll).toHaveBeenCalledWith({ where: { userCode: '4SXXFMf' }, order: [['timestamp', 'ASC']] });
+      expect(UserRecord.findAll).toHaveBeenCalledWith({
+        where: { userCode: '4SXXFMf' },
+        order: [['timestamp', 'ASC']],
+      });
     });
 
     it('should return an error when the user does not have records', async () => {
@@ -107,7 +123,10 @@ describe('UserRecordsService', () => {
           status: 404,
         },
       });
-      expect(UserRecord.findAll).toHaveBeenCalledWith({ where: { userCode: '4SXXFMf' }, order: [['timestamp', 'ASC']] });
+      expect(UserRecord.findAll).toHaveBeenCalledWith({
+        where: { userCode: '4SXXFMf' },
+        order: [['timestamp', 'ASC']],
+      });
     });
 
     it('should return an error when an exception occurs', async () => {
@@ -117,11 +136,14 @@ describe('UserRecordsService', () => {
 
       expect(result).toEqual({
         error: {
-          message: 'Falha ao buscar registros do usuário',
+          message: 'Falha ao buscar registros do usuário\nError: Database error',
           status: 400,
         },
       });
-      expect(UserRecord.findAll).toHaveBeenCalledWith({ where: { userCode: '4SXXFMf' }, order: [['timestamp', 'ASC']] });
+      expect(UserRecord.findAll).toHaveBeenCalledWith({
+        where: { userCode: '4SXXFMf' },
+        order: [['timestamp', 'ASC']],
+      });
     });
   });
 
@@ -185,7 +207,7 @@ describe('UserRecordsService', () => {
       expect(UserRecord.create).toHaveBeenCalledWith(createDto);
       expect(result).toEqual({
         error: {
-          message: 'Falha ao criar registro',
+          message: 'Falha ao criar registro\nError',
           status: 400,
         },
       });
@@ -203,7 +225,7 @@ describe('UserRecordsService', () => {
       expect(UserRecord.create).not.toHaveBeenCalled();
       expect(result).toEqual({
         error: {
-          message: 'Falha ao criar registro',
+          message: 'Falha ao criar registro\nError',
           status: 400,
         },
       });

@@ -1,4 +1,4 @@
-import { IError, IServiceResponse, IUserRecord, UserRecord } from '@shared';
+import { IDayTime, IError, IServiceResponse, IUserRecord, UserRecord } from '@shared';
 import { CreateUserRecordDto } from '../dtos/create-user-record.dto';
 
 type DiffByDay = {
@@ -34,7 +34,7 @@ export class UserRecordsService {
     return `${h < 10 ? '0' + h : h}:${m < 10 ? '0' + m : m}:${s < 10 ? '0' + s : s}`;
   }
 
-  async getDailyRecordsByUser(userCode: string): Promise<IServiceResponse<DiffByDay>> {
+  async getDailyRecordsByUser(userCode: string): Promise<IServiceResponse<IDayTime[]>> {
     try {
       const records = await UserRecord.findAll({ where: { userCode }, order: [['timestamp', 'ASC']] });
 
@@ -57,7 +57,7 @@ export class UserRecordsService {
       const diffArray = pairsArray.map((pair) => {
         const [date1, date2] = pair;
         const diffInMs = date2.getTime() - date1.getTime();
-        return { day: date1.toISOString().slice(0, 10), difference: diffInMs / (1000 * 60 * 60) };
+        return { day: date1.toISOString().slice(0, 10), difference: diffInMs };
       });
 
       const diffByDay: DiffByDay = diffArray.reduce((accumulator: DiffByDay, currentValue) => {
@@ -70,7 +70,12 @@ export class UserRecordsService {
         return accumulator;
       }, {});
 
-      return { data: diffByDay };
+      const diffByDayArray: IDayTime[] = Object.entries(diffByDay).map(([day, difference]) => ({
+        day: day,
+        time: this.msToTime(difference),
+      }));
+
+      return { data: diffByDayArray };
     } catch (error) {
       const errorResponse: IError = {
         message: `Falha ao buscar registros do usuário\n${error}`,
@@ -99,7 +104,7 @@ export class UserRecordsService {
       return { data: await UserRecord.create(createDto as UserRecord) };
     } catch (error) {
       const errorResponse: IError = {
-        message: `Falha ao criar registro\n${error}}`,
+        message: `Falha ao criar registro\n${error}`,
         status: 400,
       };
       return { error: errorResponse };

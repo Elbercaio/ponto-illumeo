@@ -44,7 +44,7 @@ describe('UsersService', () => {
 
       expect(result).toEqual({
         error: {
-          message: 'Falha ao buscar usuário',
+          message: 'Falha ao buscar usuário\nError: Database error',
           status: 400,
         },
       });
@@ -70,7 +70,7 @@ describe('UsersService', () => {
       expect(User.create).toHaveBeenCalled();
       expect(result).toEqual({
         error: {
-          message: 'Falha ao criar usuário',
+          message: 'Falha ao criar usuário\nError',
           status: 400,
         },
       });

@@ -15,7 +15,7 @@ export class UsersService {
       return { data: user };
     } catch (error) {
       const errorResponse: IError = {
-        message: `Falha ao buscar usuário\n${error}}`,
+        message: `Falha ao buscar usuário\n${error}`,
         status: 400,
       };
       return { error: errorResponse };

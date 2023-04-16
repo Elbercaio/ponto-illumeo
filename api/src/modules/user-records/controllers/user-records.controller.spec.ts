@@ -16,10 +16,10 @@ describe('UserRecordsController', () => {
     { id: 2, userCode: '4SXXFMf', recordType: UserRecordType.end, timestamp: new Date('2021-01-01T12:00:00.000Z') },
   ];
 
-  const mockDailyUserRecord = {
-    '2023-04-14': 8.000833333333333,
-    '2023-04-15': 13.986775833333333,
-  };
+  const mockDailyUserRecord = [
+    { day: '2023-04-14', time: '04:00:00' },
+    { day: '2023-04-15', time: '04:00:00' },
+  ];
   beforeEach(() => {
     service = new UserRecordsService();
     controller = new UserRecordsController(service);
