@@ -1,32 +1,45 @@
 version: "1"
 
+networks:
+  database:
+
 services:
-  client:
-    build: ./client
+  db:
+    image: postgres
+    restart: always
+    networks:
+      - database
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=ponto
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+  server:
+    build: ./api
+    restart: always
+    networks:
+      - database
     ports:
       - "3000:3000"
     depends_on:
-      - server
-  server:
-    build: ./server
-    ports:
-      - "8080:8080"
-    depends_on:
       - db
     environment:
-      - PGUSER=postgres
-      - PGHOST=db
-      - PGDATABASE=mydatabase
-      - PGPASSWORD=mysecretpassword
-      - PGPORT=5432
-  db:
-    image: postgres
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=mysecretpassword
-      - POSTGRES_DB=mydatabase
-    volumes:
-      - dbdata:/var/lib/postgresql/data
+      - DB_CONNECTION=postgres
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_DATABASE=ponto
+      - DB_USERNAME=user
+      - DB_PASSWORD=password
+  client:
+    build: ./app
+    restart: always
+    ports:
+      - "4200:4200"
+    depends_on:
+      - server
 
 volumes:
   dbdata:

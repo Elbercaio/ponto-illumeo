@@ -1,7 +1,7 @@
-import { IUserRegistry } from './user-registry.interface';
+import { IUserRecord } from './user-record.interface';
 
 export interface IUser {
   id?: number;
   code?: string;
-  userRegistry?: IUserRegistry[];
+  userRecord?: IUserRecord[];
 }

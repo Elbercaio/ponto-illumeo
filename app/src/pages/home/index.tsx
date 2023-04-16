@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { SubmitButton } from "../../components/index";
 import "./index.scss";
 import { useNavigate } from "react-router-dom";

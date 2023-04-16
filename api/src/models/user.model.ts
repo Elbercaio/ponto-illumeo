@@ -1,9 +1,10 @@
 import { Model, Column, Table, DataType, HasMany } from 'sequelize-typescript';
 import { IUser } from '../interfaces/user.interface';
-import { UserRegistry } from './user-registry.model';
+import { UserRecord } from './user-record.model';
 
 @Table({
   modelName: 'user',
+  timestamps: false,
 })
 export class User extends Model<User> implements IUser {
   @Column({
@@ -19,6 +20,6 @@ export class User extends Model<User> implements IUser {
   })
   code!: string;
 
-  @HasMany(() => UserRegistry, 'userId')
-  userRegistry?: UserRegistry[];
+  @HasMany(() => UserRecord, 'userId')
+  userRecord?: UserRecord[];
 }

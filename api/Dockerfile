@@ -2,7 +2,7 @@
 FROM node:latest
 
 # Set working directory
-WORKDIR /app
+WORKDIR /api
 
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
@@ -13,8 +13,13 @@ RUN npm install
 # Copy the rest of the app to the working directory
 COPY . .
 
+# Build the api
+RUN npm run build
+
 # Expose port
-EXPOSE 8080
+EXPOSE 3000
 
 # Start the server
-CMD ["npm", "start"]
+RUN chmod +x startup.sh
+RUN npm i -g sequelize-cli
+ENTRYPOINT [ "./startup.sh" ]

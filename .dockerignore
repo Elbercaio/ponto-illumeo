@@ -1,0 +1,11 @@
+node_modules
+coverage
+tmp
+tools 
+
+.env
+.git
+.cache
+*.md
+.gitignore
+
