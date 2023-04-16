@@ -24,16 +24,8 @@ export class UsersService {
   }
   async createUser(): Promise<IServiceResponse<IUser>> {
     try {
-      const code: string = Array.from(Array(8), () => Math.floor(Math.random() * 36).toString(36)).join('');
-      const user = await User.create({ code } as User);
-      if (!user) {
-        const error: IError = {
-          message: 'Falha ao criar usuário',
-          status: 400,
-        };
-        return { error };
-      }
-      return { data: user };
+      const code: string = Array.from(Array(7), () => Math.floor(Math.random() * 36).toString(36)).join('');
+      return { data: await User.create({ code } as User) };
     } catch (error) {
       console.log(error);
       const errorResponse: IError = {

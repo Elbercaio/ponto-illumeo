@@ -11,6 +11,7 @@ export class UserRecordsController {
       res.status(Number(record.error?.status)).send(record.error?.message);
     }
   };
+
   getDailyUserRecord = async (req: Request, res: Response) => {
     const record = await this.service.getDailyRecordsByUser(Number(req?.params.userId));
     if (record?.data) {

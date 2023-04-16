@@ -9,7 +9,7 @@ export class UserRecordsService {
   async getRecordsByUser(userId: number): Promise<IServiceResponse<IUserRecord[]>> {
     try {
       const records = await UserRecord.findAll({ where: { userId } });
-      if (!records) {
+      if (!records.length) {
         const error: IError = {
           message: 'Registros do usuário não encontrados',
           status: 404,
@@ -31,7 +31,7 @@ export class UserRecordsService {
     try {
       const records = await UserRecord.findAll({ where: { userId }, order: [['timestamp', 'ASC']] });
 
-      if (!records) {
+      if (!records.length) {
         const error: IError = {
           message: 'Registros do usuário não encontrados',
           status: 404,
@@ -90,19 +90,11 @@ export class UserRecordsService {
         };
         return { error };
       }
-      const record = await UserRecord.create(createDto as UserRecord);
-      if (!record) {
-        const error: IError = {
-          message: 'Falha ao criar registro',
-          status: 400,
-        };
-        return { error };
-      }
-      return { data: record };
+      return { data: await UserRecord.create(createDto as UserRecord) };
     } catch (error) {
       console.log(error);
       const errorResponse: IError = {
-        message: 'Falha ao criar usuário',
+        message: 'Falha ao criar registro',
         status: 400,
       };
       return { error: errorResponse };
