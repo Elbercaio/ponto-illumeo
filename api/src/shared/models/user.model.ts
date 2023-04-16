@@ -11,6 +11,7 @@ export class User extends Model<User> implements IUser {
     type: DataType.INTEGER,
     allowNull: false,
     primaryKey: true,
+    autoIncrement: true,
   })
   id?: number;
 

@@ -1,10 +1,6 @@
-import { Model, Column, Table, DataType, CreatedAt } from 'sequelize-typescript';
-import { IUserRecord } from '../interfaces/user-record.interface';
-
-export enum UserRecordType {
-  start = 'start',
-  end = 'end',
-}
+import { Model, Column, Table, DataType } from 'sequelize-typescript';
+import { UserRecordType } from '../enums';
+import { IUserRecord } from '../interfaces';
 
 @Table({
   modelName: 'user_records',
@@ -15,6 +11,7 @@ export class UserRecord extends Model<UserRecord> implements IUserRecord {
     type: DataType.INTEGER,
     allowNull: false,
     primaryKey: true,
+    autoIncrement: true,
   })
   id?: number;
 
@@ -30,6 +27,9 @@ export class UserRecord extends Model<UserRecord> implements IUserRecord {
   })
   recordType!: UserRecordType;
 
-  @CreatedAt
+  @Column({
+    type: DataType.DATE,
+    allowNull: false,
+  })
   timestamp!: Date;
 }

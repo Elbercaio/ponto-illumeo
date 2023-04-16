@@ -28,17 +28,17 @@ module.exports = {
       {
         user_id: 1,
         record_type: 'start',
-        timestamp: '2023-04-14 07:59:56',
+        timestamp: '2023-04-15 07:59:56',
       },
       {
         user_id: 1,
         record_type: 'end',
-        timestamp: '2023-04-14 12:02:43',
+        timestamp: '2023-04-15 12:02:43',
       },
       {
         user_id: 1,
         record_type: 'start',
-        timestamp: '2023-04-14 13:30:25',
+        timestamp: '2023-04-15 13:30:25',
       },
     ]),
 

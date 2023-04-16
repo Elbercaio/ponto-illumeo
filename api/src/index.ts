@@ -3,10 +3,10 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { Request, Response } from 'express';
 import usersRoutes from './routes/users.routes';
+import recordsRoutes from './routes/user-records.routes';
 import { port } from './config/config';
 import db from './config/database';
-import { UserRecord } from './models/user-record.model';
-import { User } from './models/user.model';
+import { UserRecord, User } from '@shared';
 
 async function bootstrap(): Promise<void> {
   const app = express();
@@ -19,6 +19,7 @@ async function bootstrap(): Promise<void> {
     next();
   });
   app.use('/users', usersRoutes);
+  app.use('/records', recordsRoutes);
 
   app.get('/', async (_: Request, res: Response) => {
     res.status(200).json({

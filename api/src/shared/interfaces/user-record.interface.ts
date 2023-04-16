@@ -1,4 +1,4 @@
-import { UserRecordType } from '../models/user-record.model';
+import { UserRecordType } from '../enums';
 import { IUser } from './user.interface';
 
 export interface IUserRecord {
