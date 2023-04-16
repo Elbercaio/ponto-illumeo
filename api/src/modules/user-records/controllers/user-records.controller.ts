@@ -4,7 +4,7 @@ import { UserRecordsService } from '../services/user-records.service';
 export class UserRecordsController {
   constructor(private service = new UserRecordsService()) {}
   getUserRecord = async (req: Request, res: Response) => {
-    const record = await this.service.getRecordsByUser(Number(req?.params.userId));
+    const record = await this.service.getRecordsByUser(String(req?.params.userCode));
     if (record?.data) {
       res.json(record.data);
     } else {
@@ -13,7 +13,7 @@ export class UserRecordsController {
   };
 
   getDailyUserRecord = async (req: Request, res: Response) => {
-    const record = await this.service.getDailyRecordsByUser(Number(req?.params.userId));
+    const record = await this.service.getDailyRecordsByUser(String(req?.params.userCode));
     if (record?.data) {
       res.json(record.data);
     } else {

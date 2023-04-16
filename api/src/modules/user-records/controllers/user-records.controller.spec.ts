@@ -8,12 +8,12 @@ describe('UserRecordsController', () => {
   let service: UserRecordsService;
   let mockReq: Request;
   let mockRes: Response;
-  let userId: string;
+  let userCode: string;
   let body: IUserRecord;
 
   const mockUserRecords = [
-    { id: 1, userId: 1, recordType: UserRecordType.start, timestamp: new Date('2021-01-01T08:00:00.000Z') },
-    { id: 2, userId: 2, recordType: UserRecordType.end, timestamp: new Date('2021-01-01T12:00:00.000Z') },
+    { id: 1, userCode: '4SXXFMf', recordType: UserRecordType.start, timestamp: new Date('2021-01-01T08:00:00.000Z') },
+    { id: 2, userCode: '4SXXFMf', recordType: UserRecordType.end, timestamp: new Date('2021-01-01T12:00:00.000Z') },
   ];
 
   const mockDailyUserRecord = {
@@ -24,10 +24,10 @@ describe('UserRecordsController', () => {
     service = new UserRecordsService();
     controller = new UserRecordsController(service);
     mockReq = {} as Request;
-    userId = '1';
-    mockReq.params = { userId };
+    userCode = '1';
+    mockReq.params = { userCode };
     body = {
-      userId: 1,
+      userCode: '4SXXFMf1',
       recordType: UserRecordType.start,
       timestamp: new Date('2021-01-01T08:00:00.000Z'),
     };
@@ -43,7 +43,7 @@ describe('UserRecordsController', () => {
     it('should call service with correct user ID', async () => {
       const mockService = jest.spyOn(service, 'getRecordsByUser').mockResolvedValue({ data: mockUserRecords });
       await controller.getUserRecord(mockReq, mockRes);
-      expect(mockService).toHaveBeenCalledWith(+userId);
+      expect(mockService).toHaveBeenCalledWith(+userCode);
     });
 
     it('should return user record data when service succeeds', async () => {
@@ -65,7 +65,7 @@ describe('UserRecordsController', () => {
     it('should call service with correct user ID', async () => {
       const mockService = jest.spyOn(service, 'getDailyRecordsByUser').mockResolvedValue({ data: mockDailyUserRecord });
       await controller.getDailyUserRecord(mockReq, mockRes);
-      expect(mockService).toHaveBeenCalledWith(+userId);
+      expect(mockService).toHaveBeenCalledWith(+userCode);
     });
 
     it('should return daily user record data when service succeeds', async () => {

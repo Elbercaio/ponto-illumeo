@@ -3,7 +3,7 @@ import { IUser } from './user.interface';
 
 export interface IUserRecord {
   id?: number;
-  userCode: string;
+  userId: number;
   recordType: UserRecordType;
   user?: IUser;
   timestamp?: Date;

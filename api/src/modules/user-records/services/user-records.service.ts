@@ -6,9 +6,9 @@ type DiffByDay = {
 };
 export class UserRecordsService {
   constructor() {}
-  async getRecordsByUser(userId: number): Promise<IServiceResponse<IUserRecord[]>> {
+  async getRecordsByUser(userCode: string): Promise<IServiceResponse<IUserRecord[]>> {
     try {
-      const records = await UserRecord.findAll({ where: { userId } });
+      const records = await UserRecord.findAll({ where: { userCode } });
       if (!records.length) {
         const error: IError = {
           message: 'Registros do usuário não encontrados',
@@ -27,9 +27,9 @@ export class UserRecordsService {
     }
   }
 
-  async getDailyRecordsByUser(userId: number): Promise<IServiceResponse<DiffByDay>> {
+  async getDailyRecordsByUser(userCode: string): Promise<IServiceResponse<DiffByDay>> {
     try {
-      const records = await UserRecord.findAll({ where: { userId }, order: [['timestamp', 'ASC']] });
+      const records = await UserRecord.findAll({ where: { userCode }, order: [['timestamp', 'ASC']] });
 
       if (!records.length) {
         const error: IError = {
@@ -77,7 +77,7 @@ export class UserRecordsService {
   async createUserRecord(createDto: CreateUserRecordDto): Promise<IServiceResponse<IUserRecord>> {
     try {
       const lastRecord = await UserRecord.findOne({
-        where: { userId: createDto.userId },
+        where: { userCode: createDto.userCode },
         order: [['timestamp', 'DESC']],
       });
       if (lastRecord && lastRecord?.recordType === createDto?.recordType) {

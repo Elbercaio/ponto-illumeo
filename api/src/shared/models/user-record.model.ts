@@ -16,10 +16,10 @@ export class UserRecord extends Model<UserRecord> implements IUserRecord {
   id?: number;
 
   @Column({
-    type: DataType.NUMBER,
+    type: DataType.STRING,
     allowNull: false,
   })
-  userId!: number;
+  userCode!: string;
 
   @Column({
     type: DataType.ENUM('start', 'end'),

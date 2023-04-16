@@ -4,13 +4,18 @@ div.home {
   justify-content: center;
   align-items: center;
   p {
-    font-family: "Montserrat";
+    width: 100%;
     font-style: normal;
     font-weight: 400;
     font-size: 21.5172px;
     line-height: 26px;
+    color: #cfcfcf;
+    margin-bottom: 46px;
     strong {
-      color: #cfcfcf;
+      font-weight: 900;
     }
+  }
+  .input-text {
+    margin-bottom: 24px;
   }
 }

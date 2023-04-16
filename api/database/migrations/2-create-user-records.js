@@ -10,14 +10,14 @@ module.exports = {
         type: Sequelize.DataTypes.INTEGER,
       },
 
-      userId: {
-        field: 'user_id',
+      userCode: {
+        field: 'user_code',
         allowNull: false,
         type: Sequelize.DataTypes.INTEGER,
         foreignKey: true,
         references: {
           model: 'users',
-          key: 'id',
+          key: 'code',
         },
       },
 

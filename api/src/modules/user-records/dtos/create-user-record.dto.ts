@@ -1,11 +1,10 @@
-import { IsDate, IsEnum, IsInt, IsNotEmpty, IsNumber } from 'class-validator';
 import { IUserRecord, UserRecordType } from '@shared';
+import { IsDate, IsEnum, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateUserRecordDto implements IUserRecord {
-  @IsNotEmpty({ message: 'Id do Usuário não pode ser vazio.' })
-  @IsNumber({}, { message: 'Id do Usuário: Campo numérico.' })
-  @IsInt({ message: 'Id do Usuário: Valor precisa ser um número inteiro.' })
-  userId!: number;
+  @IsNotEmpty({ message: 'Código do Usuário não pode ser vazio.' })
+  @IsString({ message: 'Código do Usuário: Campo numérico.' })
+  userCode!: string;
 
   @IsNotEmpty({ message: 'Tipo de registro não pode ser vazio.' })
   @IsEnum(UserRecordType)

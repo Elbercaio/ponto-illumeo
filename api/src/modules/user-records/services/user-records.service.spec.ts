@@ -8,22 +8,22 @@ describe('UserRecordsService', () => {
   const mockUserRecords = [
     {
       id: 1,
-      userId: 1,
+      userCode: '4SXXFMf',
       recordType: UserRecordType.start,
       timestamp: new Date('2023-04-14T08:00:00.000Z'),
     } as UserRecord,
-    { id: 2, userId: 1, recordType: UserRecordType.end, timestamp: new Date('2023-04-14T12:00:00.000Z') } as UserRecord,
+    { id: 2, userCode: '4SXXFMf', recordType: UserRecordType.end, timestamp: new Date('2023-04-14T12:00:00.000Z') } as UserRecord,
     {
       id: 3,
-      userId: 1,
+      userCode: '4SXXFMf',
       recordType: UserRecordType.start,
       timestamp: new Date('2023-04-15T08:00:00.000Z'),
     } as UserRecord,
-    { id: 4, userId: 1, recordType: UserRecordType.end, timestamp: new Date('2023-04-15T12:00:00.000Z') } as UserRecord,
+    { id: 4, userCode: '4SXXFMf', recordType: UserRecordType.end, timestamp: new Date('2023-04-15T12:00:00.000Z') } as UserRecord,
   ];
 
   const createDto: CreateUserRecordDto = {
-    userId: 1,
+    userCode: '4SXXFMf',
     recordType: UserRecordType.start,
     timestamp: new Date('2023-04-14T12:00:00.000Z'),
   };
@@ -36,16 +36,16 @@ describe('UserRecordsService', () => {
     it('should return the user records when the user have records', async () => {
       jest.spyOn(UserRecord, 'findAll').mockResolvedValue(mockUserRecords);
 
-      const result = await service.getRecordsByUser(1);
+      const result = await service.getRecordsByUser('4SXXFMf');
 
       expect(result).toEqual({ data: mockUserRecords });
-      expect(UserRecord.findAll).toHaveBeenCalledWith({ where: { userId: 1 } });
+      expect(UserRecord.findAll).toHaveBeenCalledWith({ where: { userCode: '4SXXFMf' } });
     });
 
     it('should return an error when the user does not have records', async () => {
       jest.spyOn(UserRecord, 'findAll').mockResolvedValue([]);
 
-      const result = await service.getRecordsByUser(1);
+      const result = await service.getRecordsByUser('4SXXFMf');
 
       expect(result).toEqual({
         error: {
@@ -53,13 +53,13 @@ describe('UserRecordsService', () => {
           status: 404,
         },
       });
-      expect(UserRecord.findAll).toHaveBeenCalledWith({ where: { userId: 1 } });
+      expect(UserRecord.findAll).toHaveBeenCalledWith({ where: { userCode: '4SXXFMf' } });
     });
 
     it('should return an error when an exception occurs', async () => {
       jest.spyOn(UserRecord, 'findAll').mockRejectedValue(new Error('Database error'));
 
-      const result = await service.getRecordsByUser(1);
+      const result = await service.getRecordsByUser('4SXXFMf');
 
       expect(result).toEqual({
         error: {
@@ -67,7 +67,7 @@ describe('UserRecordsService', () => {
           status: 400,
         },
       });
-      expect(UserRecord.findAll).toHaveBeenCalledWith({ where: { userId: 1 } });
+      expect(UserRecord.findAll).toHaveBeenCalledWith({ where: { userCode: '4SXXFMf' } });
     });
   });
 
@@ -75,7 +75,7 @@ describe('UserRecordsService', () => {
     it('should return the daily user records when the user have records', async () => {
       jest.spyOn(UserRecord, 'findAll').mockResolvedValue(mockUserRecords);
 
-      const result = await service.getDailyRecordsByUser(1);
+      const result = await service.getDailyRecordsByUser('4SXXFMf');
 
       expect(result).toEqual({
         data: {
@@ -83,23 +83,23 @@ describe('UserRecordsService', () => {
           '2023-04-15': 4,
         },
       });
-      expect(UserRecord.findAll).toHaveBeenCalledWith({ where: { userId: 1 }, order: [['timestamp', 'ASC']] });
+      expect(UserRecord.findAll).toHaveBeenCalledWith({ where: { userCode: '4SXXFMf' }, order: [['timestamp', 'ASC']] });
     });
 
     it('should return even if the turn has not finished', async () => {
       jest.spyOn(UserRecord, 'findAll').mockResolvedValue([mockUserRecords[0]]);
 
-      const result = await service.getDailyRecordsByUser(1);
+      const result = await service.getDailyRecordsByUser('4SXXFMf');
       if (result?.data) {
         expect(result.data['2023-04-14']).toBeGreaterThan(0);
       }
-      expect(UserRecord.findAll).toHaveBeenCalledWith({ where: { userId: 1 }, order: [['timestamp', 'ASC']] });
+      expect(UserRecord.findAll).toHaveBeenCalledWith({ where: { userCode: '4SXXFMf' }, order: [['timestamp', 'ASC']] });
     });
 
     it('should return an error when the user does not have records', async () => {
       jest.spyOn(UserRecord, 'findAll').mockResolvedValue([]);
 
-      const result = await service.getDailyRecordsByUser(1);
+      const result = await service.getDailyRecordsByUser('4SXXFMf');
 
       expect(result).toEqual({
         error: {
@@ -107,13 +107,13 @@ describe('UserRecordsService', () => {
           status: 404,
         },
       });
-      expect(UserRecord.findAll).toHaveBeenCalledWith({ where: { userId: 1 }, order: [['timestamp', 'ASC']] });
+      expect(UserRecord.findAll).toHaveBeenCalledWith({ where: { userCode: '4SXXFMf' }, order: [['timestamp', 'ASC']] });
     });
 
     it('should return an error when an exception occurs', async () => {
       jest.spyOn(UserRecord, 'findAll').mockRejectedValue(new Error('Database error'));
 
-      const result = await service.getDailyRecordsByUser(1);
+      const result = await service.getDailyRecordsByUser('4SXXFMf');
 
       expect(result).toEqual({
         error: {
@@ -121,7 +121,7 @@ describe('UserRecordsService', () => {
           status: 400,
         },
       });
-      expect(UserRecord.findAll).toHaveBeenCalledWith({ where: { userId: 1 }, order: [['timestamp', 'ASC']] });
+      expect(UserRecord.findAll).toHaveBeenCalledWith({ where: { userCode: '4SXXFMf' }, order: [['timestamp', 'ASC']] });
     });
   });
 
@@ -133,7 +133,7 @@ describe('UserRecordsService', () => {
       const result = await service.createUserRecord(createDto);
 
       expect(UserRecord.findOne).toHaveBeenCalledWith({
-        where: { userId: createDto.userId },
+        where: { userCode: createDto.userCode },
         order: [['timestamp', 'DESC']],
       });
       expect(UserRecord.create).toHaveBeenCalledWith(createDto);
@@ -147,7 +147,7 @@ describe('UserRecordsService', () => {
       const result = await service.createUserRecord(createDto);
 
       expect(UserRecord.findOne).toHaveBeenCalledWith({
-        where: { userId: createDto.userId },
+        where: { userCode: createDto.userCode },
         order: [['timestamp', 'DESC']],
       });
       expect(UserRecord.create).toHaveBeenCalledWith(createDto);
@@ -160,7 +160,7 @@ describe('UserRecordsService', () => {
       const result = await service.createUserRecord(createDto);
 
       expect(UserRecord.findOne).toHaveBeenCalledWith({
-        where: { userId: createDto.userId },
+        where: { userCode: createDto.userCode },
         order: [['timestamp', 'DESC']],
       });
       expect(UserRecord.create).not.toHaveBeenCalled();
@@ -179,7 +179,7 @@ describe('UserRecordsService', () => {
       const result = await service.createUserRecord(createDto);
 
       expect(UserRecord.findOne).toHaveBeenCalledWith({
-        where: { userId: createDto.userId },
+        where: { userCode: createDto.userCode },
         order: [['timestamp', 'DESC']],
       });
       expect(UserRecord.create).toHaveBeenCalledWith(createDto);
@@ -197,7 +197,7 @@ describe('UserRecordsService', () => {
       const result = await service.createUserRecord(createDto);
 
       expect(UserRecord.findOne).toHaveBeenCalledWith({
-        where: { userId: createDto.userId },
+        where: { userCode: createDto.userCode },
         order: [['timestamp', 'DESC']],
       });
       expect(UserRecord.create).not.toHaveBeenCalled();

@@ -5,7 +5,7 @@ interface Props {
   children?: React.ReactNode;
   height: string;
   width: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export const SubmitButton: React.FC<Props> = ({
@@ -20,6 +20,7 @@ export const SubmitButton: React.FC<Props> = ({
       height,
       width,
     }}
+    type="submit"
   >
     {children}
   </button>

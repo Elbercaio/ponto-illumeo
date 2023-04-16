@@ -21,6 +21,6 @@ export class User extends Model<User> implements IUser {
   })
   code!: string;
 
-  @HasMany(() => UserRecord, 'userId')
+  @HasMany(() => UserRecord, 'userCode')
   userRecord?: UserRecord[];
 }

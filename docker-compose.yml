@@ -18,6 +18,7 @@ services:
       - dbdata:/var/lib/postgresql/data
     ports:
       - 5432:5432
+    mem_limit: "200m"
 
   server:
     build: ./api
@@ -36,6 +37,7 @@ services:
       - DB_DATABASE=ponto
       - DB_USERNAME=user
       - DB_PASSWORD=password
+    mem_limit: "1g"
 
   client:
     build: ./app
@@ -44,6 +46,7 @@ services:
       - "4200:4200"
     depends_on:
       - server
+    mem_limit: "1g"
 
 volumes:
   dbdata:

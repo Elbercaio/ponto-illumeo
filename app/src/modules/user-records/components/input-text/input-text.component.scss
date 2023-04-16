@@ -1,0 +1,31 @@
+.input-text {
+  background: #1e2733;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 14px;
+  box-sizing: border-box;
+  font-style: normal;
+  color: #ffffff;
+  label {
+    position: absolute;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 15px;
+    padding-top: 7px;
+  }
+  input {
+    padding-top: 4px;
+    color: #ffffff;
+    width: 90%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    font-weight: 600;
+    font-size: 21.6px;
+    line-height: 26px;
+    &:focus {
+      outline: none;
+    }
+  }
+}
