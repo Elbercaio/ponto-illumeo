@@ -3,6 +3,7 @@ import { SubmitButton } from "../../components/index";
 import "./index.scss";
 
 export function Home() {
+  
   return (
     <div className="home">
       <p>
