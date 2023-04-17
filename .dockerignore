@@ -8,4 +8,4 @@ tools
 .cache
 *.md
 .gitignore
-
+.snap

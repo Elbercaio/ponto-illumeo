@@ -115,3 +115,5 @@ dist
 
 # misc
 .DS_Store
+__snapshots__
+.snap
