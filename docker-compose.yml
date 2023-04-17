@@ -25,11 +25,11 @@ services:
     networks:
       - database
     ports:
-      - "3000:3000"
+      - "4200:4200"
     depends_on:
       - db
     environment:
-      - API_PORT=3000
+      - API_PORT=4200
       - DB_CONNECTION=postgres
       - DB_HOST=db
       - DB_PORT=5432
@@ -41,7 +41,7 @@ services:
     build: ./app
     restart: always
     ports:
-      - "4200:4200"
+      - "3000:3000"
     depends_on:
       - server
 
