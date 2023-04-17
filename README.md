@@ -12,6 +12,12 @@ Para testar:
 ```bash
 # Instalar dependências
 $ npm i
-# Testar
+
+# Testar api
+$ cd api
+$ jest
+
+# Testar front
+$ cd app
 $ jest
 ```
