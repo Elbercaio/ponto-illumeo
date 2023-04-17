@@ -50,6 +50,7 @@ div.records {
     height: 480px;
     max-height: 90%;
     overflow-y: auto;
+    overflow-x: hidden;
     .list {
       list-style-type: none;
       padding: 0;
@@ -60,6 +61,10 @@ div.records {
     @media screen and (max-height: 580px) {
       height: 160px;
     }
+  }
+
+  @media screen and (max-width: 540px) {
+    padding: 0;
   }
 
   @media screen and (max-width: 375px) {
