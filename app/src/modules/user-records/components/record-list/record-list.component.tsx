@@ -1,10 +1,16 @@
-import React from "react";
+import React from 'react';
+import './record-list.component.scss';
 
 interface Props {
   day: string;
-  hours: number;
+  time: string;
 }
 
-export const RecordList: React.FC<Props> = ({ day, hours }) => {
-  return <li className="record">{`${day}:${hours}`}</li>;
+export const RecordList: React.FC<Props> = ({ day, time }) => {
+  return (
+    <li className="record">
+      <div className="day">{day}</div>
+      <div className="time">{time}</div>
+    </li>
+  );
 };

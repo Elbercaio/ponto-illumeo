@@ -1,6 +1,6 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import "./App.scss";
-import { Home, Layout, Records } from "./modules/user-records/pages";
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import './App.scss';
+import { Home, Layout, Records } from './modules/user-records/pages';
 
 function App() {
   return (

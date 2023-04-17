@@ -10,6 +10,10 @@
   ],
   "rules": {
     "prettier/prettier": ["error"],
-    "no-console": 2
+    "no-console": 2,
+    "camelcase": "error",
+    "spaced-comment": "error",
+    "quotes": ["error", "single"],
+    "no-duplicate-imports": "error"
   }
 }

@@ -1,27 +1,13 @@
-import React from "react";
-import "./submit-button.component.scss";
+import React from 'react';
+import './submit-button.component.scss';
 
 interface Props {
   children?: React.ReactNode;
-  height: string;
-  width: string;
   onClick?: () => void;
 }
 
-export const SubmitButton: React.FC<Props> = ({
-  children,
-  height,
-  onClick,
-  width,
-}) => (
-  <button
-    onClick={onClick}
-    style={{
-      height,
-      width,
-    }}
-    type="submit"
-  >
+export const SubmitButton: React.FC<Props> = ({ children, onClick }) => (
+  <button onClick={onClick} type="submit">
     {children}
   </button>
 );

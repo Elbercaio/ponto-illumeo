@@ -17,8 +17,8 @@ describe('UserRecordsController', () => {
   ];
 
   const mockDailyUserRecord = [
-    { day: '2023-04-14', time: '04:00:00' },
-    { day: '2023-04-15', time: '04:00:00' },
+    { day: '2023-04-15', time: '04h 00m' },
+    { day: '2023-04-14', time: '04h 00m' },
   ];
   beforeEach(() => {
     service = new UserRecordsService();

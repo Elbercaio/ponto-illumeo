@@ -89,8 +89,8 @@ describe('UserRecordsService', () => {
 
       expect(result).toEqual({
         data: [
-          { day: '2023-04-14', time: '04:00:00' },
-          { day: '2023-04-15', time: '04:00:00' },
+          { day: '2023-04-15', time: '04h 00m' },
+          { day: '2023-04-14', time: '04h 00m' },
         ],
       });
       expect(UserRecord.findAll).toHaveBeenCalledWith({

@@ -30,13 +30,12 @@ export class UserRecordsService {
     let hours = ms / (1000 * 60 * 60);
     let h = Math.floor(hours);
     let m = Math.floor((hours - h) * 60);
-    let s = Math.floor(((hours - h) * 60 - m) * 60);
-    return `${h < 10 ? '0' + h : h}:${m < 10 ? '0' + m : m}:${s < 10 ? '0' + s : s}`;
+    return `${h < 10 ? '0' + h : h}h ${m < 10 ? '0' + m : m}m`;
   }
 
   async getDailyRecordsByUser(userCode: string): Promise<IServiceResponse<IDayTime[]>> {
     try {
-      const records = await UserRecord.findAll({ where: { userCode }, order: [['timestamp', 'ASC']] });
+      const records = await UserRecord.findAll({ where: { userCode }, order: [['timestamp', 'DESC']] });
 
       if (!records.length) {
         const error: IError = {
@@ -46,8 +45,10 @@ export class UserRecordsService {
         return { error };
       }
       const timestamps = records.map((record): Date => record.timestamp);
+      let incompleteShift = false;
       if (timestamps.length % 2 !== 0) {
-        timestamps.push(new Date(new Date().getTime() - 3 * 60 * 60 * 1000));
+        incompleteShift = true;
+        timestamps.unshift(new Date(new Date().getTime() - 3 * 60 * 60 * 1000));
       }
 
       const pairsArray: Date[][] = Array.from({ length: Math.ceil(timestamps.length / 2) }, (_, i) =>
@@ -56,7 +57,7 @@ export class UserRecordsService {
 
       const diffArray = pairsArray.map((pair) => {
         const [date1, date2] = pair;
-        const diffInMs = date2.getTime() - date1.getTime();
+        const diffInMs = date1.getTime() - date2.getTime();
         return { day: date1.toISOString().slice(0, 10), difference: diffInMs };
       });
 
@@ -74,6 +75,10 @@ export class UserRecordsService {
         day: day,
         time: this.msToTime(difference),
       }));
+
+      if (incompleteShift) {
+        diffByDayArray[0].incompleteShift = true;
+      }
 
       return { data: diffByDayArray };
     } catch (error) {

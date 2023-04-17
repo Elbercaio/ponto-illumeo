@@ -18,4 +18,8 @@ div.home {
   .input-text {
     margin-bottom: 24px;
   }
+  
+  @media screen and (max-width: 375px) {
+    max-width: 90%;
+  }
 }

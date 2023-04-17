@@ -1,5 +1,5 @@
-import { IUser, http } from "../../../shared";
-import { AxiosResponse } from "axios";
+import { IUser, http } from '../../../shared';
+import { AxiosResponse } from 'axios';
 
 export class UserService {
   get(code: string): Promise<AxiosResponse<IUser>> {
@@ -7,6 +7,6 @@ export class UserService {
   }
 
   create(): Promise<AxiosResponse<IUser>> {
-    return http.post<IUser>("@senaiplay-api/users");
+    return http.post<IUser>('@senaiplay-api/users');
   }
 }
