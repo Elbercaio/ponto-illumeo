@@ -1,4 +1,4 @@
-import { Model, Column, Table, DataType, HasMany } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
 import { IUser } from '../interfaces/user.interface';
 import { UserRecord } from './user-record.model';
 
@@ -18,6 +18,7 @@ export class User extends Model<User> implements IUser {
   @Column({
     type: DataType.STRING,
     allowNull: false,
+    unique: true,
   })
   code!: string;
 

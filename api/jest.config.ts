@@ -20,7 +20,4 @@ export default {
     '.enum.ts',
     '<rootDir>/src/index.ts',
   ],
-  moduleNameMapper: {
-    '@shared': ['<rootDir>/src/shared/index.ts'],
-  },
 };

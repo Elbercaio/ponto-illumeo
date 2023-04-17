@@ -1,12 +1,11 @@
-import http from 'http';
-import express from 'express';
 import bodyParser from 'body-parser';
-import { Request, Response } from 'express';
-import usersRoutes from './routes/users.routes';
-import recordsRoutes from './routes/user-records.routes';
+import express, { Request, Response } from 'express';
+import http from 'http';
 import { port } from './config/config';
 import db from './config/database';
-import { UserRecord, User } from '@shared';
+import recordsRoutes from './routes/user-records.routes';
+import usersRoutes from './routes/users.routes';
+import { User, UserRecord } from './shared';
 
 async function bootstrap(): Promise<void> {
   const app = express();

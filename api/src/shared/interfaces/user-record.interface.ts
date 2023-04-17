@@ -5,6 +5,6 @@ export interface IUserRecord {
   id?: number;
   userCode: string;
   recordType: UserRecordType;
-  user?: IUser;
   timestamp?: Date;
+  user?: IUser;
 }

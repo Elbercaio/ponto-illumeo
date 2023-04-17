@@ -1,5 +1,5 @@
-import { IUserRecord, UserRecordType } from '@shared';
 import { Request, Response } from 'express';
+import { IUserRecord, UserRecordType } from '../../../shared';
 import { UserRecordsService } from '../services/user-records.service';
 import { UserRecordsController } from './user-records.controller';
 

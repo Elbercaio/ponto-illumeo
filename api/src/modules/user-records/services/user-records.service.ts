@@ -1,4 +1,4 @@
-import { IDayTime, IError, IServiceResponse, IUserRecord, UserRecord } from '@shared';
+import { IDayTime, IError, IServiceResponse, IUserRecord, UserRecord } from '../../../shared';
 import { CreateUserRecordDto } from '../dtos/create-user-record.dto';
 
 type DiffByDay = {

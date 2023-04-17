@@ -13,6 +13,7 @@ module.exports = {
       code: {
         allowNull: false,
         type: Sequelize.DataTypes.STRING,
+        unique: true,
       },
     });
   },

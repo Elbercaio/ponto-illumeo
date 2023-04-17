@@ -1,4 +1,4 @@
-import { UserRecord, UserRecordType } from '@shared';
+import { UserRecord, UserRecordType } from '../../../shared';
 import { CreateUserRecordDto } from '../dtos/create-user-record.dto';
 import { UserRecordsService } from './user-records.service';
 

@@ -1,5 +1,5 @@
-import { IUserRecord, UserRecordType } from '@shared';
 import { IsDate, IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import { IUserRecord, UserRecordType } from '../../../shared';
 
 export class CreateUserRecordDto implements IUserRecord {
   @IsNotEmpty({ message: 'Código do Usuário não pode ser vazio.' })

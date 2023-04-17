@@ -1,4 +1,4 @@
-import { IError, IServiceResponse, IUser, User } from '@shared';
+import { IError, IServiceResponse, IUser, User } from '../../../shared';
 
 export class UsersService {
   constructor() {}

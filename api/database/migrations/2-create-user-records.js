@@ -13,7 +13,7 @@ module.exports = {
       userCode: {
         field: 'user_code',
         allowNull: false,
-        type: Sequelize.DataTypes.INTEGER,
+        type: Sequelize.DataTypes.STRING,
         foreignKey: true,
         references: {
           model: 'users',

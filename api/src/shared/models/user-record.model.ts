@@ -1,6 +1,7 @@
-import { Model, Column, Table, DataType } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, Model, Table } from 'sequelize-typescript';
 import { UserRecordType } from '../enums';
 import { IUserRecord } from '../interfaces';
+import { User } from './user.model';
 
 @Table({
   modelName: 'user_records',
@@ -32,4 +33,7 @@ export class UserRecord extends Model<UserRecord> implements IUserRecord {
     allowNull: false,
   })
   timestamp!: Date;
+
+  @BelongsTo(() => User, 'userCode')
+  user?: User;
 }
