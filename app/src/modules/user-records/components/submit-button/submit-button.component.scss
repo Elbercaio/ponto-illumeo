@@ -12,4 +12,7 @@ button {
   text-align: center;
   color: #1e2733;
   border: none;
+  &:hover {
+    cursor: pointer;
+  }
 }
