@@ -1,12 +1,12 @@
-/* eslint-disable react/jsx-key */
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import { IDayTime, IUserRecord, UserRecordType } from '../../../../shared';
 import { RecordList, SubmitButton } from '../../components';
 import { UserRecordService } from '../../services/user-record.service';
 import './index.scss';
 
-const MINUTE_MS = 60000;
+import 'react-toastify/dist/ReactToastify.css';
 
 export function Records() {
   const [data, setData] = useState<IDayTime[]>();
@@ -24,24 +24,20 @@ export function Records() {
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const getData = async () => {
-        await service.getDailyUserRecord(code).then((res) => {
-          const data = res?.data;
-          setData(res.data);
+    const getData = async () => {
+      await service.getDailyUserRecord(code).then((res) => {
+        const data = res?.data;
+        setData(res.data);
 
-          if (data[0].incompleteShift) {
-            const today = data.shift();
-            setTodayTime(today?.time || '00h 00m');
-            setIncompleteShift(true);
-          }
-          setData(data);
-        });
-      };
-      getData();
-    }, MINUTE_MS);
-
-    return () => clearInterval(interval);
+        if (data[0].incompleteShift) {
+          const today = data.shift();
+          setTodayTime(today?.time || '00h 00m');
+          setIncompleteShift(true);
+        }
+        setData(data);
+      });
+    };
+    getData();
   }, [code]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -55,9 +51,10 @@ export function Records() {
       .postUserRecord(body)
       .then(() => {
         setIncompleteShift(!incompleteShift);
+        toast.success('Registro feito com sucesso');
       })
       .catch((error) => {
-        console.log(error);
+        toast.error(`${error.response.status} - ${error.response.data}`);
       });
   };
 
@@ -82,11 +79,12 @@ export function Records() {
       <h3>Dias anteriores</h3>
       <div className="day-time">
         <ul className="list">
-          {data?.map((record) => (
-            <RecordList day={record?.day} time={record?.time} />
+          {data?.map((record: IDayTime, index: number) => (
+            <RecordList day={record?.day} time={record?.time} key={index}/>
           ))}
         </ul>
       </div>
+      <ToastContainer />
     </div>
   );
 }
