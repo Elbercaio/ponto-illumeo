@@ -1,65 +1,72 @@
 /* eslint-disable react/jsx-key */
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { IDayTime } from '../../../../shared';
+import { IDayTime, IUserRecord, UserRecordType } from '../../../../shared';
 import { RecordList, SubmitButton } from '../../components';
+import { UserRecordService } from '../../services/user-record.service';
 import './index.scss';
+
+const MINUTE_MS = 60000;
 
 export function Records() {
   const [data, setData] = useState<IDayTime[]>();
-  const [todayTime, setTodayTime] = useState<string>();
-  const [incompleteShift, setIncompleteShift] = useState<boolean>();
+  const [todayTime, setTodayTime] = useState<string>('00h 00m');
+  const [incompleteShift, setIncompleteShift] = useState<boolean>(false);
 
   const { search } = useLocation();
-  const params = useMemo(() => {
+  const code = useMemo(() => {
     const query = new URLSearchParams(search).toString();
 
     return query.replace('code=', '');
   }, [search]);
-  useEffect(() => {
-    // const service = new UserRecordService();
-    const getData = () => {
-      const response = [
-        { day: '2023-04-15', time: '04h 00m', incompleteShift: true },
-        { day: '2023-04-14', time: '04h 00m' },
-        { day: '2023-04-13', time: '04h 00m' },
-        { day: '2023-04-12', time: '04h 00m' },
-        { day: '2023-04-11', time: '04h 00m' },
-        { day: '2023-04-10', time: '04h 00m' },
-        { day: '2023-04-09', time: '04h 00m' },
-        { day: '2023-04-08', time: '04h 00m' },
-        { day: '2023-04-07', time: '04h 00m' },
-      ];
-      if (response[0].incompleteShift) {
-        const today = response.shift();
-        setTodayTime(today?.time);
-        setIncompleteShift(true);
-      } else {
-        setTodayTime('00h 00m');
-      }
-      setData(response);
-      console.log(new Date('2023-04-15'));
-    };
-    getData();
+  const service = useMemo(() => {
+    return new UserRecordService();
   }, []);
 
-  // useEffect(() => {
-  // service.getDailyUserRecord(params?.code)
-  //   .then((res) => {
-  //     setData(res.data)
-  //   })
-  // })
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const getData = async () => {
+        await service.getDailyUserRecord(code).then((res) => {
+          const data = res?.data;
+          setData(res.data);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+          if (data[0].incompleteShift) {
+            const today = data.shift();
+            setTodayTime(today?.time || '00h 00m');
+            setIncompleteShift(true);
+          }
+          setData(data);
+        });
+      };
+      getData();
+    }, MINUTE_MS);
+
+    return () => clearInterval(interval);
+  }, [code]);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(incompleteShift ? 'end' : 'start');
+    const body: IUserRecord = {
+      userCode: code,
+      recordType: incompleteShift ? UserRecordType.end : UserRecordType.start,
+      timestamp: new Date(new Date().getTime() - 3 * 60 * 60 * 1000),
+    };
+    await service
+      .postUserRecord(body)
+      .then(() => {
+        setIncompleteShift(!incompleteShift);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+
   return (
     <div className="records">
       <div className="header">
         <div className="top">
           <h3>Relógio de ponto</h3>
-          <h3 className="code">#{params}</h3>
+          <h3 className="code">#{code}</h3>
         </div>
         <div className="bot">
           <span>Usuário</span>

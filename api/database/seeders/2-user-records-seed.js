@@ -40,6 +40,11 @@ module.exports = {
         record_type: 'start',
         timestamp: '2023-04-15 13:30:25',
       },
+      {
+        user_code: '4SXXFMf',
+        record_type: 'end',
+        timestamp: '2023-04-15 17:30:32',
+      },
     ]),
 
   down: (queryInterface, _Sequelize) => queryInterface.bulkDelete('user_records', null, {}),
