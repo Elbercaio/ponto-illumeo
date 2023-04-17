@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import * as dotenv from 'dotenv';
 
 try {
@@ -7,8 +8,8 @@ try {
 }
 
 export const port = Number(process.env.API_PORT);
-export const db_host = String(process.env.DB_HOST);
-export const db_port = Number(process.env.DB_PORT);
-export const db_database = String(process.env.DB_DATABASE);
-export const db_user = String(process.env.DB_USERNAME);
-export const db_password = String(process.env.DB_PASSWORD);
+export const databaseHost = String(process.env.DB_HOST);
+export const databasePort = Number(process.env.DB_PORT);
+export const database = String(process.env.DB_DATABASE);
+export const databaseUser = String(process.env.DB_USERNAME);
+export const databasePassword = String(process.env.DB_PASSWORD);

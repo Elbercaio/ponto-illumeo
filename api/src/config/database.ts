@@ -1,13 +1,13 @@
 import { Sequelize } from 'sequelize-typescript';
-import { db_host, db_user, db_password, db_database, db_port } from './config';
+import { database, databaseHost, databasePassword, databasePort, databaseUser } from './config';
 
 const db = new Sequelize({
   dialect: 'postgres',
-  host: db_host,
-  port: db_port,
-  database: db_database,
-  username: db_user,
-  password: db_password,
+  host: databaseHost,
+  port: databasePort,
+  database: database,
+  username: databaseUser,
+  password: databasePassword,
   define: {
     underscored: true,
   },

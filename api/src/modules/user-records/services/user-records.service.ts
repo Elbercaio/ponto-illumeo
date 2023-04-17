@@ -27,9 +27,9 @@ export class UserRecordsService {
   }
 
   msToTime(ms: number) {
-    let hours = ms / (1000 * 60 * 60);
-    let h = Math.floor(hours);
-    let m = Math.floor((hours - h) * 60);
+    const hours = ms / (1000 * 60 * 60);
+    const h = Math.floor(hours);
+    const m = Math.floor((hours - h) * 60);
     return `${h < 10 ? '0' + h : h}h ${m < 10 ? '0' + m : m}m`;
   }
 

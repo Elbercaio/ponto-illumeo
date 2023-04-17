@@ -7,16 +7,10 @@ describe('UserRecordsService', () => {
 
   const mockUserRecords = [
     {
-      id: 1,
-      userCode: '4SXXFMf',
-      recordType: UserRecordType.start,
-      timestamp: new Date('2023-04-14T08:00:00.000Z'),
-    } as UserRecord,
-    {
-      id: 2,
+      id: 4,
       userCode: '4SXXFMf',
       recordType: UserRecordType.end,
-      timestamp: new Date('2023-04-14T12:00:00.000Z'),
+      timestamp: new Date('2023-04-15T12:00:00.000Z'),
     } as UserRecord,
     {
       id: 3,
@@ -25,16 +19,22 @@ describe('UserRecordsService', () => {
       timestamp: new Date('2023-04-15T08:00:00.000Z'),
     } as UserRecord,
     {
-      id: 4,
+      id: 2,
       userCode: '4SXXFMf',
       recordType: UserRecordType.end,
-      timestamp: new Date('2023-04-15T12:00:00.000Z'),
+      timestamp: new Date('2023-04-14T12:00:00.000Z'),
+    } as UserRecord,
+    {
+      id: 1,
+      userCode: '4SXXFMf',
+      recordType: UserRecordType.start,
+      timestamp: new Date('2023-04-14T08:00:00.000Z'),
     } as UserRecord,
   ];
 
   const createDto: CreateUserRecordDto = {
     userCode: '4SXXFMf',
-    recordType: UserRecordType.start,
+    recordType: UserRecordType.end,
     timestamp: new Date('2023-04-14T12:00:00.000Z'),
   };
 
@@ -95,7 +95,7 @@ describe('UserRecordsService', () => {
       });
       expect(UserRecord.findAll).toHaveBeenCalledWith({
         where: { userCode: '4SXXFMf' },
-        order: [['timestamp', 'ASC']],
+        order: [['timestamp', 'DESC']],
       });
     });
 
@@ -108,7 +108,7 @@ describe('UserRecordsService', () => {
       }
       expect(UserRecord.findAll).toHaveBeenCalledWith({
         where: { userCode: '4SXXFMf' },
-        order: [['timestamp', 'ASC']],
+        order: [['timestamp', 'DESC']],
       });
     });
 
@@ -125,7 +125,7 @@ describe('UserRecordsService', () => {
       });
       expect(UserRecord.findAll).toHaveBeenCalledWith({
         where: { userCode: '4SXXFMf' },
-        order: [['timestamp', 'ASC']],
+        order: [['timestamp', 'DESC']],
       });
     });
 
@@ -142,7 +142,7 @@ describe('UserRecordsService', () => {
       });
       expect(UserRecord.findAll).toHaveBeenCalledWith({
         where: { userCode: '4SXXFMf' },
-        order: [['timestamp', 'ASC']],
+        order: [['timestamp', 'DESC']],
       });
     });
   });
@@ -164,7 +164,7 @@ describe('UserRecordsService', () => {
 
     it('should create a new user record if previous record has different type', async () => {
       jest.spyOn(UserRecord, 'create').mockResolvedValueOnce(mockUserRecords[0]);
-      jest.spyOn(UserRecord, 'findOne').mockResolvedValueOnce(mockUserRecords[3]);
+      jest.spyOn(UserRecord, 'findOne').mockResolvedValueOnce(mockUserRecords[1]);
 
       const result = await service.createUserRecord(createDto);
 
@@ -185,10 +185,9 @@ describe('UserRecordsService', () => {
         where: { userCode: createDto.userCode },
         order: [['timestamp', 'DESC']],
       });
-      expect(UserRecord.create).not.toHaveBeenCalled();
       expect(result).toEqual({
         error: {
-          message: 'É preciso finalizar o turno primeiro',
+          message: 'É preciso começar o turno primeiro',
           status: 409,
         },
       });

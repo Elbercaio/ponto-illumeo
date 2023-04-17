@@ -80,7 +80,7 @@ export function Records() {
       <div className="day-time">
         <ul className="list">
           {data?.map((record: IDayTime, index: number) => (
-            <RecordList day={record?.day} time={record?.time} key={index}/>
+            <RecordList day={record?.day} time={record?.time} key={index} />
           ))}
         </ul>
       </div>

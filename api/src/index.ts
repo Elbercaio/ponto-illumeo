@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import bodyParser from 'body-parser';
 import express, { Request, Response } from 'express';
 import http from 'http';
