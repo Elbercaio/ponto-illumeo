@@ -7,6 +7,8 @@ Para rodar toda a aplicação:
 $ docker-compose up -d
 ```
 
+### Acesso em localhost:3000
+
 Para testar:
 
 ```bash
