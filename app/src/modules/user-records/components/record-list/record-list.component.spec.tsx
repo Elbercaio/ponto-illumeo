@@ -1,8 +1,6 @@
 import renderer from 'react-test-renderer';
 import { RecordList } from './record-list.component';
 
-jest.mock('./record-list.component.scss', () => ({}));
-
 describe('RecordList', () => {
   it('renders the day and time values correctly', () => {
     const day = 'Monday';

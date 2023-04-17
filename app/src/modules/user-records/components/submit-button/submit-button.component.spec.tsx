@@ -1,9 +1,5 @@
-import { SubmitButton } from './submit-button.component';
-
-import React from 'react';
 import renderer from 'react-test-renderer';
-
-jest.mock('./submit-button.component.scss', () => ({}));
+import { SubmitButton } from './submit-button.component';
 
 describe('SubmitButton', () => {
   it('renders the button text correctly', () => {

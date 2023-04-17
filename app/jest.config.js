@@ -5,7 +5,10 @@
 
 module.exports = {
   testMatch: ['**/+(*.)+(spec).+(tsx)?(x)'],
-  transform: { '^.+\\.tsx$': 'ts-jest' },
+  transform: { '^.+\\.(ts|js|html|tsx)$': 'ts-jest' },
+  moduleNameMapper: {
+    '\\.(css|scss|less)$': '<rootDir>/__mocks__/styleMock.js',
+  },
   clearMocks: true,
   collectCoverage: true,
   coverageDirectory: 'coverage',

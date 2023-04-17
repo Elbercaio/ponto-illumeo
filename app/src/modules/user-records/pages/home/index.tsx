@@ -2,9 +2,10 @@ import { useMemo } from 'react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { InputText, SubmitButton } from '../../components/index';
 import { UserService } from '../../services/user.service';
 import './index.scss';
+import { SubmitButton } from '../../components/submit-button/submit-button.component';
+import { InputText } from '../../components/input-text/input-text.component';
 
 export function Home() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ export function Home() {
     const target = event.target as typeof event.target & {
       code: { value: string };
     };
-    const code = target.code.value || 'undefined';
+    const code = target?.code?.value || 'undefined';
     const params = { code };
     await service
       .get(code)
